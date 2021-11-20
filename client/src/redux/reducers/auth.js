@@ -1,7 +1,7 @@
 const initialState = {
     token: localStorage.getItem("token"), 
     user: null,
-    isAuthenticated: null,
+    isAuthenticated: false,
     loading : true
 }
 
@@ -15,6 +15,8 @@ const auth = (state = initialState, action) => {
             localStorage.setItem("token", payload.token)
             return {...state, ...payload, isAuthenticated: true, loading: false}
         case "LOGOUT":
+        case "REGISTER_FAILURE":
+        case "LOGIN_FAILURE":
             localStorage.removeItem("token");
             return {
               ...state,

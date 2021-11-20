@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {loadUser} from "./redux/actions/auth";
 import setAuthToken from "./utils/setAuthToken";
+import Alert from "./components/layout/Alert";
 if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
@@ -22,6 +23,7 @@ function App() {
     <Router>
       <Navbar />
       <Container>
+        <Alert />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />

@@ -1,5 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
+import {setAlert} from "./alert";
 
 const URL = "http://localhost:5000/api";
 
@@ -38,7 +39,7 @@ export const register =
       if (errors) {
         console.log(errors);
       }
-      dispatch({ type: "REGISTER_FAIL" });
+      dispatch({ type: "REGISTER_FAILURE" });
     }
   };
 
@@ -58,11 +59,12 @@ export const login =
       if (errors) {
         console.log(errors);
       }
-      dispatch({ type: "LOGIN_FAIL" });
+      dispatch({ type: "REGISTER_FAILURE" });
     }
   };
 
   export const logout = () => (dispatch) => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({type: "LOGOUT"});
+    // dispatch(setAlert("Logged In!", "success"))
   };
   

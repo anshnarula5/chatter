@@ -6,7 +6,7 @@ import {Navigate} from "react-router-dom"
 import { Paper, TextField, Typography, Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import {login, register} from "../redux/actions/auth";
-
+import {setAlert} from "../redux/actions/alert"
 const Auth = () => {
   const {isAuthenticated} = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -28,6 +28,7 @@ const Auth = () => {
   }
   const handleLogin = () => {
     dispatch(login({email, password}))
+    // dispatch(setAlert("Logged In!", "success"))
   }
   if (isAuthenticated) {
     return <Navigate to = "/"/>
