@@ -157,7 +157,7 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-  const {isAuthenticated} = useSelector((state) => state.auth);
+  const {isAuthenticated, loading} = useSelector((state) => state.auth);
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout())
@@ -196,7 +196,7 @@ export default function PrimarySearchAppBar() {
             </Search>
 
 
-            {isAuthenticated ? (
+            {!loading && <>{isAuthenticated ? (
                 <Button variant="text" style={{ color: "white" }} onClick = {handleLogout}>
                   Logout
                 </Button>
@@ -206,7 +206,7 @@ export default function PrimarySearchAppBar() {
                   Login/Suignup
                 </Button>
               </Link>
-            )}
+            )}</>}
 
 
 
