@@ -19,6 +19,7 @@ import { Button, Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../redux/actions/auth"
+import {setAlert} from "../../redux/actions/alert";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -161,6 +162,7 @@ export default function PrimarySearchAppBar() {
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(setAlert("Logged Out!", "success"))
   }
 
   return (

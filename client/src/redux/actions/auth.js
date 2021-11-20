@@ -32,12 +32,13 @@ export const register =
         config
       );
       console.log(res.data);
-      dispatch({ type: "REGISTER_SUCCESS", payload: res.data });
+      dispatch({type: "REGISTER_SUCCESS", payload: res.data});
+      dispatch(setAlert("Signed In !", "success"))
       dispatch(loadUser());
     } catch (error) {
       const errors = error.response.data.errors;
       if (errors) {
-        console.log(errors);
+        errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
       }
       dispatch({ type: "REGISTER_FAILURE" });
     }
@@ -52,12 +53,13 @@ export const login =
         {email, password }
       );
       console.log(res.data);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      dispatch({type: "LOGIN_SUCCESS", payload: res.data});
+      dispatch(setAlert("Signed In !", "success"))
       dispatch(loadUser());
     } catch (error) {
       const errors = error.response.data.errors;
       if (errors) {
-        console.log(errors);
+        errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
       }
       dispatch({ type: "REGISTER_FAILURE" });
     }
@@ -65,6 +67,5 @@ export const login =
 
   export const logout = () => (dispatch) => {
     dispatch({type: "LOGOUT"});
-    // dispatch(setAlert("Logged In!", "success"))
   };
   
