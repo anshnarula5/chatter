@@ -1,8 +1,8 @@
 const express = require("express");
 const socketio = require("socket.io");
 const http = require("http");
+const cors = require("cors")
 
-const router = require("./router.js");
 
 const mongoose = require("mongoose");
 mongoose
@@ -21,7 +21,10 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(router);
+app.use(express.json({extended : true}))
+app.use(cors())
+
+app.use("/api/users", require("./routes/api/users.js"))
 
 const PORT = process.env.PORT || 5000;
 
