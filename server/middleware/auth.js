@@ -1,15 +1,18 @@
 const jwt = require("jsonwebtoken")
 
-module.exports = (req, res, next) => {
+module.exports = function (req, res, next) {
     const token = req.header("x-auth-token")
+
     if (!token) {
-        res.status(401).json({msg : "Unauthorized"})
+        return res.status(401).json({msg : "No token, Authourization denied"})
     }
     try {
         const decoded = jwt.verify(token, "secret")
         req.user = decoded.user
         next()
+        
     } catch (error) {
-        res.status(401).json({msg : "token invalid"})
+        res.status(401).json({msg : "Token Invalid"})
     }
 }
+
