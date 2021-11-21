@@ -1,11 +1,12 @@
 const router = require("express").Router();
+const auth = require("../../middleware/auth");
 const Conversation = require("../../models/Conversation");
 
 //new conv
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const newConversation = new Conversation({
-    members: [req.body.senderId, req.body.receiverId],
+    members: [req.user.id , req.body.receiverId],
   });
 
   try {
@@ -18,10 +19,10 @@ router.post("/", async (req, res) => {
 
 //get conv of a user
 
-router.get("/:userId", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const conversation = await Conversation.find({
-      members: { $in: [req.params.userId] },
+      members: { $in: [req.user.id] },
     });
     res.status(200).json(conversation);
   } catch (err) {
@@ -31,7 +32,7 @@ router.get("/:userId", async (req, res) => {
 
 // get conv includes two userId
 
-router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
+router.get("/find/:firstUserId/:secondUserId", auth, async (req, res) => {
   try {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
