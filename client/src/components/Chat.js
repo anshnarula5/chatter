@@ -1,9 +1,11 @@
 import { Avatar, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, {useEffect} from "react";
 import Messages from "./Messages";
 
+
 const Chat = () => {
+  
   return (
     <Box sx={{ borderLeft: 0.2}}>
       <Box sx = {{display :"flex", flexDirection: 'column'}}>
@@ -19,7 +21,7 @@ const Chat = () => {
             <Typography>Name</Typography>
           </Grid>
         </Grid>
-        <Box sx={{ height : "80vh", flexGrow : 1 , backgroundColor : "blue"}}>
+        <Box sx={{ height : "70vh", flexGrow : 1 , backgroundColor : "blue"}}>
           <Messages />
         </Box>
         <TextField id="outlined-basic" variant="outlined" />

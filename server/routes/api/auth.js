@@ -20,6 +20,17 @@ router.get("/", auth, async(req, res) =>{
         res.status(500)
     }
 })
+
+//get user by id
+router.get("/:id", auth, async(req, res) =>{
+    try {
+        const user = await User.findById(req.params.id).select("-password")
+        res.json(user)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500)
+    }
+})
 //login
 router.post("/", validator, async (req, res) => {
     const errors = validationResult(req)

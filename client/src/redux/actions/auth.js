@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import {setAlert} from "./alert";
+import {removeConversations} from "./chat";
 
 const URL = "http://localhost:5000/api";
 
@@ -16,6 +17,8 @@ export const loadUser = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+
 
 export const register =
   ({ email, name, password }) =>
@@ -66,6 +69,7 @@ export const login =
   };
 
   export const logout = () => (dispatch) => {
+    dispatch(removeConversations())
     dispatch({type: "LOGOUT"});
   };
   

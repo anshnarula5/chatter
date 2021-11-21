@@ -1,20 +1,37 @@
 import { Avatar, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import axios from "axios";
+import React, {useEffect, useState} from "react";
+import {useSelector} from 'react-redux'
 
-const Conversation = () => {
+
+const Conversation = ({conversation}) => {
+  const {user, authLoading} = useSelector(state => state.auth)
+  const [friend, setFriend] = useState({})
+  useEffect(() => {
+    const friendId = conversation.members.filter(member => member !== user?._id)
+    const getUserById = async() => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/auth/${friendId}`);
+        setFriend(res.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUserById()
+  }, [])
   return (
-    <Box sx = {{p : 1,  borderBottom: .3,}} >
+    <Box sx = {{p : 1,  borderBottom: .3}} >
       <Grid container>
         <Grid item xs={2}>
           <Avatar
             alt="Remy Sharp"
-            src="https://images.unsplash.com/photo-1507599944477-f675212ef210?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            src={friend.image}
             sx={{ width: 50, height: 50 }}
           />
         </Grid>
         <Grid item xs={9}  sx={{ px : 2, my : "auto" }}>
-         <Typography >Name</Typography>
+          <Typography >{friend.name}</Typography>
         </Grid>
       </Grid>
     </Box>
