@@ -198,7 +198,7 @@ export default function PrimarySearchAppBar() {
             </Search>
 
 
-            {!loading && <>{isAuthenticated ? (
+        <>{isAuthenticated ? (
                 <Button variant="text" style={{ color: "white" }} onClick = {handleLogout}>
                   Logout
                 </Button>
@@ -208,7 +208,7 @@ export default function PrimarySearchAppBar() {
                   Login/Suignup
                 </Button>
               </Link>
-            )}</>}
+            )}</>
 
 
 

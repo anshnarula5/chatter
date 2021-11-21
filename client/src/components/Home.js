@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Grid, Paper } from "@mui/material";
 import Conversations from "./Conversations";
 import Chat from "./Chat";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {getConversations} from "../redux/actions/chat";
 
 const Home = () => {
+  const {isAuthenticated, loading} = useSelector(state => state.auth)
 const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getConversations())
-  }, [])
+  }, [isAuthenticated, loading ])
+  
+  if (!isAuthenticated ) {
+    return "Login to convo"
+  }
   return (
     <Paper sx = {{mt : 3}}>
       <Grid container>

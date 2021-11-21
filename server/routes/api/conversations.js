@@ -5,13 +5,10 @@ const Conversation = require("../../models/Conversation");
 //new conv
 
 router.post("/", auth, async (req, res) => {
-  const newConversation = new Conversation({
-    members: [req.user.id , req.body.receiverId],
-  });
-
   try {
-    const savedConversation = await newConversation.save();
-    res.status(200).json(savedConversation);
+    const user1 = req.user.id
+    const user2 = req.body.reciverId
+    const newConvo = new Conversation({})
   } catch (err) {
     res.status(500).json(err);
   }

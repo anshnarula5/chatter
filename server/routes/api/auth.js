@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken")
 const {check, validationResult} = require("express-validator")
 const User = require("../../models/User")
 const auth = require("../../middleware/auth.js")
+const mongoose = require("mongoose")
 
 const router = express.Router()
 
@@ -22,9 +23,10 @@ router.get("/", auth, async(req, res) =>{
 })
 
 //get user by id
-router.get("/:id", auth, async(req, res) =>{
+router.get("/:id", auth, async (req, res) => {
+    const id = req.params.id
     try {
-        const user = await User.findById(req.params.id).select("-password")
+        const user = await User.findOne({_id : id}).select("-password")
         res.json(user)
     } catch (error) {
         console.log(error.message)

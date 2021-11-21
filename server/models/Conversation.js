@@ -1,10 +1,21 @@
 const mongoose = require("mongoose")
 const {Schema} = mongoose
+const User = require("../models/User")
+const Message = require("../models/Message")
 
 const conversationSchema = new Schema({
-    members: {
-        type : Array
+    messages: {
+        type: [Schema.Types.ObjectId],
+        ref : "Message"
     },
+    user1: {
+        type : Schema.Types.ObjectId,
+        ref : "User"
+    },
+    user2: {
+        type : Schema.Types.ObjectId,
+        ref : "User"
+    }
 },
 {timestamps : true}
 )

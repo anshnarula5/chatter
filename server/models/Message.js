@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const {Schema} = mongoose;
+const User = require("../models/User")
+const Conversation = require("../models/Conversation")
 
 const messageSchema = new Schema(
   {
     conversationId: {
-      type: String,
+      type : Schema.Types.ObjectId,
+        ref : "Conversation"
     },
-    sender: String,
+    sender: {
+      type : Schema.Types.ObjectId,
+        ref : "User"
+    },
     text: String,
   },
   { timestamps: true }
