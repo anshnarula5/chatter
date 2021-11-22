@@ -7,10 +7,10 @@ import Conversation from "./Conversation";
 import axios from "axios";
 import { Box } from "@mui/system";
 import { io } from "socket.io-client";
-
+import Picker from "emoji-picker-react";
 
 const Home = () => {
-  const socket = useRef()
+  const socket = useRef();
   const { conversations, loading: Cloading } = useSelector(
     (state) => state.chat
   );
@@ -21,30 +21,31 @@ const Home = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8000")
-    conversations && socket.current.on("getMessage", data => {
-      setArrivalMessage({
-        sender: data.senderId,
-        text: data.text,
-        createdAt : Date.now()
-      })
-    })
-  }, [])
+    socket.current = io("ws://localhost:8000");
+    conversations &&
+      socket.current.on("getMessage", (data) => {
+        setArrivalMessage({
+          sender: data.senderId,
+          text: data.text,
+          createdAt: Date.now(),
+        });
+      });
+  }, []);
 
   useEffect(() => {
     arrivalMessage &&
-    currentChat?.users.filter(user => user._id === arrivalMessage.sender).length > 0 &&
+      currentChat?.users.filter((user) => user._id === arrivalMessage.sender)
+        .length > 0 &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-
   useEffect(() => {
-    !loading && user && socket.current.emit("addUser", user._id)
+    !loading && user && socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
-      console.log(users)
-    })
-  }, [user, loading])
-  
+      console.log(users);
+    });
+  }, [user, loading]);
+
   //socketio
   // useEffect(() => {
   //   socket.current = io("ws://localhost:8000");
@@ -84,16 +85,16 @@ const Home = () => {
   const handleSubmit = async () => {
     const message = {
       sender: user._id,
-      text: newMessage, 
+      text: newMessage,
       conversationId: currentChat._id,
     };
     const receiver = currentChat?.users.find(
       (member) => member._id !== user?._id
     );
-    const receiverId = receiver._id
+    const receiverId = receiver._id;
     socket.current.emit("sendMessage", {
       senderId: user._id,
-      receiverId : receiverId,
+      receiverId: receiverId,
       text: newMessage,
     });
     try {
@@ -121,6 +122,12 @@ const Home = () => {
     };
     getMessages();
   }, [currentChat]);
+
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
 
   if (!isAuthenticated) {
     return "Login to convo";
@@ -168,15 +175,23 @@ const Home = () => {
                   }}
                 >
                   <Chat messages={messages} user={user} />
-                  <Grid container>
-                    <Grid item xs={10}>
+                  <Box sx={{ display: "flex" }}>
+                    <div>
+                      {chosenEmoji ? (
+                        <span>You chose: {chosenEmoji.emoji}</span>
+                      ) : (
+                        <span>No emoji Chosen</span>
+                      )}
+                      <Picker onEmojiClick={onEmojiClick} />
+                    </div>
+                    <Box sx={{ flexGrow: 1 }}>
                       <TextField
                         variant="outlined"
                         fullWidth={true}
                         value={newMessage}
                         onChange={handleChange}
                       />
-                    </Grid>
+                    </Box>
                     <Button
                       item
                       xs={2}
@@ -186,7 +201,7 @@ const Home = () => {
                     >
                       send msg
                     </Button>
-                  </Grid>
+                  </Box>
                 </Box>
               </Box>
             ) : (
