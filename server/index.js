@@ -1,6 +1,4 @@
 const express = require("express");
-const socketio = require("socket.io");
-const http = require("http");
 const cors = require("cors")
 
 
@@ -11,15 +9,7 @@ mongoose
   .catch(() => console.log("Mongoose Errpr"));
 
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
 
-io.on("connection", (socket) => {
-  console.log("A new user just joined");
-  socket.on("disconnect", () => {
-    console.log("User Left");
-  });
-});
 
 app.use(express.json({extended : true}))
 app.use(cors())
@@ -31,4 +21,4 @@ app.use("/api/messages", require("./routes/api/messages.js"))
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(PORT, () => console.log(`Runnin on ${PORT}`))

@@ -21,6 +21,15 @@ router.get("/", auth, async(req, res) =>{
         res.status(500)
     }
 })
+router.get("/all", auth, async(req, res) =>{
+    try {
+        const users = await User.find().select("-password")
+        res.json(users)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500)
+    }
+})
 
 //get user by id
 router.get("/:id", auth, async (req, res) => {
