@@ -10,10 +10,10 @@ const Message = ({ own }) => {
         my: 1,
         backgroundColor: "yellow",
         maxWidth: 300,
-        alignSelf: own ? "flex-end" : "'flex-start",
+        alignSelf: own ? "flex-end" : "flex-start",
       }}
     >
-      Hello hsdas das dsasa d asda da da
+      Hello hsdas das dsasa d asda da dasad as das dasda da sd
     </Box>
   );
 };
