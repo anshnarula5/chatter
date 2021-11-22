@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { loadUser } from "./redux/actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 import Popup from "./components/layout/Popup";
+import Landing from "./components/Landing";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -24,9 +25,10 @@ function App() {
       <Navbar />
       <Container>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/chat" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/" element={<Landing />} />
+
         </Routes>
       </Container>
       <Popup />

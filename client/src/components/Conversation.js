@@ -11,8 +11,7 @@ const Conversation = ({ conversation }) => {
   useEffect(() => {
     if (!loading && user) {
       const f = conversation.users.filter((u) => u?._id !== user?._id);
-      console.log(f[0]);
-      console.log(user)
+     
       setFriend(f[0]);
     }
   }, [loading, user]);
