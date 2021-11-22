@@ -33,7 +33,7 @@ router.get("/", auth, async (req, res) => {
     // }).populate("author")
     const user = await User.findById(req.user.id)
       .populate("conversations")
-      .populate({ path: "conversations", populate: { path: "users" } });
+      .populate({path: "conversations", populate: {path: "users"}})
     const conversations = user.conversations;
     res.status(200).json(conversations);
   } catch (err) {

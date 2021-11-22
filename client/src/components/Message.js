@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import React from "react";
 
-const Message = ({ own }) => {
+const Message = ({ own, message }) => {
   return (
     <Box
       sx={{
@@ -13,7 +13,7 @@ const Message = ({ own }) => {
         alignSelf: own ? "flex-end" : "flex-start",
       }}
     >
-      Hello hsdas das dsasa d asda da dasad as das dasda da sd
+      {message.text}
     </Box>
   );
 };

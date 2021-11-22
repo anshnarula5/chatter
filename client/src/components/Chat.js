@@ -1,14 +1,16 @@
-import { Avatar, Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, {useEffect} from "react";
-import Messages from "./Messages";
+import React from "react";
+import Message from "./Message";
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 
-const Chat = () => {
+const Chat = ({messages, user}) => {
+
   
   return (
-    <Box sx={{ borderLeft: 0.2}}>
-      <Box sx = {{display :"flex", flexDirection: 'column'}}>
+    
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Grid container sx={{ px: 3, py: 1, backgroundColor: "red" }}>
           <Grid item xs={2}>
             <Avatar
@@ -20,12 +22,21 @@ const Chat = () => {
           <Grid item xs={9} sx={{ px: 2, my: "auto" }}>
             <Typography>Name</Typography>
           </Grid>
-        </Grid>
-        <Box sx={{ height : "70vh", flexGrow : 1 , backgroundColor : "blue"}}>
-          <Messages />
+      </Grid>
+      <ScrollToBottom >
+        <Box sx={{ height: "63vh", flexGrow: 1}}>
+          <Box
+            sx={{
+              px: 2,
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+            }}
+        >
+            {messages.map(message => <Message message={message} own={message.sender === user._id}/>)}
+          </Box>
         </Box>
-        <TextField id="outlined-basic" variant="outlined" />
-      </Box>
+        </ScrollToBottom>
     </Box>
   );
 };
