@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const {Schema} = mongoose
-
+const Conversation = require("./Conversation")
 const userSchema = new Schema({
     name: {
         type: String,
@@ -19,7 +19,8 @@ const userSchema = new Schema({
         default : "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png"
     },
     conversations: {
-        type : [String]
+        type: [Schema.Types.ObjectId],
+        ref : "Conversation"
     }
 })
 

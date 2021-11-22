@@ -5,10 +5,7 @@ const Conversation = require("../models/Conversation")
 
 const messageSchema = new Schema(
   {
-    conversationId: {
-      type : Schema.Types.ObjectId,
-        ref : "Conversation"
-    },
+    
     sender: {
       type : Schema.Types.ObjectId,
         ref : "User"

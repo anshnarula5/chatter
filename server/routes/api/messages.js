@@ -4,7 +4,7 @@ const Message = require("../../models/Message");
 
 //add
 
-router.post("/", auth, async (req, res) => {
+router.post("/:convoId", auth, async (req, res) => {
   const newMessage = new Message(req.body);
   try {
     const savedMessage = await newMessage.save();
