@@ -17,9 +17,11 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Button, Container } from "@mui/material";
 import { Link } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/actions/auth"
-import {setAlert} from "../../redux/actions/alert";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions/auth";
+import { setAlert } from "../../redux/actions/alert";
+import DarkModeToggle from "react-dark-mode-toggle";
+import {set_toggle} from "../../redux/actions/toggle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -158,11 +160,15 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-  const {isAuthenticated, loading} = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
+  const toggle = useSelector((state) => state.toggle);
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logout())
-    dispatch(setAlert("Logged Out!", "success"))
+    dispatch(logout());
+    dispatch(setAlert("Logged Out!", "success"));
+  };
+  const handleToggle = () => {
+    dispatch(set_toggle())
   }
 
   return (
@@ -197,20 +203,28 @@ export default function PrimarySearchAppBar() {
               />
             </Search>
 
-
-        <>{isAuthenticated ? (
-                <Button variant="text" style={{ color: "white" }} onClick = {handleLogout}>
+            <>
+              {isAuthenticated ? (
+                <Button
+                  variant="text"
+                  style={{ color: "white" }}
+                  onClick={handleLogout}
+                >
                   Logout
                 </Button>
-            ) : (
-              <Link to="/auth">
-                <Button variant="text" style={{ color: "white" }}>
-                  Login/Suignup
-                </Button>
-              </Link>
-            )}</>
-
-
+              ) : (
+                <Link to="/auth">
+                  <Button variant="text" style={{ color: "white" }}>
+                    Login/Suignup
+                  </Button>
+                </Link>
+              )}
+            </>
+            <DarkModeToggle
+              onChange={handleToggle}
+              checked={toggle}
+              size={60}
+            />
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
