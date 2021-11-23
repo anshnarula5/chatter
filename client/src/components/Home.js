@@ -168,7 +168,7 @@ const Home = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Chat messages={messages} user={user} />
+                <Chat messages={messages} user={user} users={currentChat.users}/>
                 <Box sx={{ display: "flex" }}>
                   <Box sx={{ flexGrow: 1 }}>
                     <TextField

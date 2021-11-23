@@ -4,7 +4,8 @@ import React from "react";
 import Message from "./Message";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-const Chat = ({ messages, user }) => {
+const Chat = ({messages, user, users}) => {
+  let friend = users.filter(u => u._id !== user._id)[0]
   return (
     <Box sx={{display: "flex", flexDirection: "column", }}>
       <Paper elevation = {6} sx = {{ backgroundColor : "#1976d2"}}>
@@ -12,12 +13,12 @@ const Chat = ({ messages, user }) => {
         <Grid item xs={2}>
           <Avatar
             alt="Remy Sharp"
-            src="https://images.unsplash.com/photo-1507599944477-f675212ef210?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            src={friend.image}
             sx={{ width: 50, height: 50 }}
           />
         </Grid>
         <Grid item xs={9} sx={{ px: 2, my: "auto" }}>
-          <Typography>Name</Typography>
+            <Typography>{friend.name}</Typography>
         </Grid>
       </Grid>
       </Paper>
